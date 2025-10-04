@@ -1,0 +1,54 @@
+A channel in Go is a communication mechanism that allows goroutines to safely share data. 
+They can either be unbuffered or buffered, more like a mailbox where one person drops off letters (data) and another picks them up, with options for single-use, one-way, or two-way access.
+
+Understanding Channel Types
+
+// Unbuffered channel
+ch := make(chan string)
+// Blocks until receiver is ready
+
+sample code for above deadlock case:
+
+```
+func main() {
+	ch := make(chan int)
+	ch <- 10
+	go multiplyWithChannel(ch)
+}
+
+func multiplyWithChannel(ch chan int) {
+	fmt.Println(10 * <-ch)
+}
+
+now this gives a deadlock bcz as we declare unbuffered channel(ch<-10) it blocks unless the receiver is ready
+
+
+```
+
+
+
+
+
+
+// Buffered channel
+bufferedCh := make(chan string, 5)
+// Blocks only when buffer is full
+// Used for async communication with known bounds
+
+// Read-only channel
+func readOnly(ch <-chan string) {
+    // Can only read from ch
+}
+
+// Write-only channel
+func writeOnly(ch chan<- string) {
+    // Can only write to ch
+}
+
+Channel Direction Operators Explained:
+
+chan<-: Send-only channel; can only be used to send data.
+
+<-chan: Receive-only channel; can only be used to receive data.
+
+chan: Bidirectional channel; can be used for both sending and receiving data.
