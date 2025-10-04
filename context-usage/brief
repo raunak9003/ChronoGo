@@ -1,0 +1,11 @@
+Timeout and Cancellation Patterns
+
+When dealing with long-running or resource-intensive tasks, managing timeouts and cancellations is key to using resources efficiently and avoiding issues like goroutine leaks. 
+
+
+Prevents Goroutine Leaks: The ctx.Done() case ensures goroutines exit cleanly if the context is canceled, so you don’t end up with orphaned goroutines consuming memory.
+
+
+Implements Proper Timeouts: By using a WithTimeout context, you control how long each operation can take, improving system responsiveness.
+
+Error Propagation: This pattern uses buffered channels for error handling, allowing you to handle errors independently and preventing goroutines from blocking on send.
