@@ -1,0 +1,29 @@
+🧩 What is the Advanced Workpool Pattern?
+
+The Advanced Workpool Pattern is a way to run multiple tasks concurrently while controlling how many goroutines run at the same time.
+Instead of creating a new goroutine for every task (which can overload the system), we create a fixed number of workers that keep picking up jobs from a shared queue until all work is done.
+
+⚙️ Why is it useful?
+
+It helps you:
+
+Avoid too many goroutines — by keeping the number of active workers limited.
+
+Use system resources efficiently — all workers stay busy until every task is complete.
+
+Speed up execution — tasks are processed in parallel instead of one by one.
+
+Handle errors and cancellations gracefully — workers can stop when a context is cancelled or when the job queue is empty.
+
+💡 Example (in simple words)
+
+Imagine you have a list of items and you want to copy or process each one.
+If you do this in a single loop, each item is handled one after another — this is sequential and takes longer.
+
+With a workpool, you can create, say, 5 workers.
+Each worker will take an item from the list, process it, and then pick the next available one.
+This means multiple items are being processed at the same time, which makes the program faster and more efficient.
+
+
+without this pattern time complexity is -> o(n*t)  t is proccessing time
+with this pattern time complexity is -> o(n*t/w) w is the number of workers
